@@ -21,13 +21,13 @@ print(df.head())
 # STEP 3: Load Models
 nlp = spacy.load("en_core_web_sm")
 
-# Use a better pipeline: zero-shot for multi-class sentiment (positive, negative, neutral)
+# zero-shot for multi-class sentiment (positive, negative)
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
-# Define common aspects
+# common aspects
 aspects = ['room', 'food', 'service', 'location', 'price']
 
-# STEP 4: Define helper functions
+# STEP 4:  helper functions
 def find_aspects(text):
     found = []
     for aspect in aspects:
@@ -68,6 +68,7 @@ print(result_df.head(10))
 result_df.to_csv("aspect_sentiment_transformer_output.csv", index=False)
 files.download("aspect_sentiment_transformer_output.csv")
 
+# After results got it corrected by AI to compare the correctrd and the output for accuracy
 import pandas as pd
 from sklearn.metrics import accuracy_score, classification_report
 
