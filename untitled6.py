@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1A9hfmNzNS2QTGxU2Omlx3048tvfsl8-O
 """
 
-# STEP 2: Import and Upload Dataset
+# Import and Upload Dataset
 import pandas as pd
 import spacy
 from google.colab import files
@@ -18,7 +18,7 @@ df = pd.read_csv("hotel_reviews_aspect_dataset_3001.csv")
 print("Loaded dataset:")
 print(df.head())
 
-# STEP 3: Load Models
+# Load Models
 nlp = spacy.load("en_core_web_sm")
 
 # zero-shot for multi-class sentiment (positive, negative)
@@ -27,7 +27,7 @@ classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnl
 # common aspects
 aspects = ['room', 'food', 'service', 'location', 'price']
 
-# STEP 4:  helper functions
+# helper functions
 def find_aspects(text):
     found = []
     for aspect in aspects:
@@ -41,7 +41,7 @@ def get_sentiment_zero_shot(text):
     result = classifier(text, candidate_labels)
     return result['labels'][0]  # highest confidence label
 
-# STEP 5: Process each sentence for aspect & sentiment
+# Process each sentence for aspect & sentiment
 results = []
 
 for review in df['review']:
@@ -61,7 +61,7 @@ for review in df['review']:
             except:
                 continue
 
-# STEP 6: Save Results
+# Save Results
 result_df = pd.DataFrame(results)
 print(result_df.head(10))
 
